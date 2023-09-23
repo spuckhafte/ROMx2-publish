@@ -55,7 +55,7 @@ export default class EVaultChain {
     }
 
     hashDesignIsValid(hash: string) {
-        const validator = new RegExp('^00', 'g');
+        const validator = new RegExp('^0000', 'g');
         return validator.test(hash);
     }
 

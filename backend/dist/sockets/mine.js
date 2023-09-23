@@ -13,7 +13,7 @@ import Pending from "../Schema/Pending.js";
 import { EVault } from "../index.js";
 export default class extends ASocket {
     run() {
-        var _a, _b, _c;
+        var _a, _b, _c, _d;
         return __awaiter(this, void 0, void 0, function* () {
             const pendingBlock = (yield Pending.find({}).sort('timestamp'))[0];
             if (!pendingBlock || !pendingBlock.id) {
@@ -34,7 +34,8 @@ export default class extends ASocket {
                     (_b = this.socket) === null || _b === void 0 ? void 0 : _b.emit('error-adding-block', status);
                 }
                 else {
-                    (_c = this.io) === null || _c === void 0 ? void 0 : _c.emit('block-added', 'New Block Added');
+                    (_c = this.socket) === null || _c === void 0 ? void 0 : _c.emit('block-added', 'New Block Added');
+                    (_d = this.io) === null || _d === void 0 ? void 0 : _d.emit('update-recents');
                     yield Pending.deleteOne({ id: block.id });
                 }
                 break;

@@ -16,7 +16,7 @@ export default class extends ASocket {
             if (!this.args)
                 return;
             const [file] = this.args;
-            const fileData = yield readFile(`../backend/assets/docs/${file}`, { encoding: "utf-8" });
+            const fileData = yield readFile(`../backend/assets/docs/${file}`);
             (_a = this.socket) === null || _a === void 0 ? void 0 : _a.emit('downFile', file, fileData);
         });
     }

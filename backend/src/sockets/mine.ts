@@ -3,7 +3,6 @@ import Block from "../helpers/Block.js";
 import { BlockType } from "../../types.js";
 import Pending from "../Schema/Pending.js";
 import { EVault } from "../index.js";
-import Chain from "../Schema/Chain.js";
 
 export default class extends ASocket<[]> {
     async run() {

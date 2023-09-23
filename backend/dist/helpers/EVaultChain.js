@@ -49,7 +49,7 @@ class EVaultChain {
         return !isImpure;
     }
     hashDesignIsValid(hash) {
-        const validator = new RegExp('^00', 'g');
+        const validator = new RegExp('^0000', 'g');
         return validator.test(hash);
     }
     initDb() {

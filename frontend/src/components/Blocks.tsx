@@ -22,7 +22,9 @@ export default () => {
         socket.removeAllListeners('update-recents');
         socket.removeAllListeners('downFile');
 
-        socket.on('allBlocks', (newBlocks: BlockAsJSON[]) => setBlocks(newBlocks));
+        socket.on('allBlocks', (newBlocks: BlockAsJSON[]) => {
+            setBlocks(newBlocks);
+        });
         socket.on('update-recents', () => {
             socket.emit('getAllBlocks');
         });

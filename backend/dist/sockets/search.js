@@ -17,7 +17,12 @@ export default class extends ASocket {
                 return;
             const [field, query] = this.args;
             const actualField = field == 'id' ? field : "data." + field;
-            const blocks = (yield Chain.find({ [actualField]: query })).map(block => {
+            const blocks = (yield Chain.find({
+                [actualField]: {
+                    "$regex": query,
+                    "$options": "i"
+                }
+            })).map(block => {
                 return {
                     id: block.id,
                     timestamp: block.timestamp,

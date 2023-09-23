@@ -24,8 +24,6 @@ export default class extends ASocket {
                 };
             });
             sendBlocks.shift();
-            console.log(sendBlocks);
-            console.log(sendBlocks.reverse());
             (_a = this.socket) === null || _a === void 0 ? void 0 : _a.emit('allBlocks', sendBlocks.reverse());
         });
     }

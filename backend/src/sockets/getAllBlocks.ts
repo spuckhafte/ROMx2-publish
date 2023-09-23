@@ -15,8 +15,6 @@ export default class extends ASocket<[]> {
             } as BlockAsJSON;
         });
         sendBlocks.shift();
-        console.log(sendBlocks);
-        console.log(sendBlocks.reverse());
         this.socket?.emit('allBlocks', sendBlocks.reverse());
     }
 }

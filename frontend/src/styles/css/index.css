@@ -51,7 +51,6 @@ main .blocks {
   background-color: #def1fd;
   overflow-x: auto;
   display: flex;
-  flex-direction: row-reverse;
   position: relative;
   align-items: center;
   max-width: 40rem;
