@@ -6,7 +6,7 @@ export default class extends ASocket<[file: string]> {
         if (!this.args) return;
         const [file] = this.args;
 
-        const fileData = await readFile(`../backend/assets/docs/${file}`);
+        const fileData = await readFile(`../backend/assets/docs/${file}`, { encoding: "utf-8" });
         this.socket?.emit('downFile', file, fileData);
     }
 }
