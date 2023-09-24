@@ -11,7 +11,7 @@ A Blockchain-Based eVault for Legal Records
 (node should be installed in your system)
 1. Clone the repo
 ```
-git clone https://github.com/snuhack-ROMx2/eVault/
+git clone https://github.com/spuckhafte/ROMx2-publish
 ```
 2. Open two terminals
 3. First terminal
