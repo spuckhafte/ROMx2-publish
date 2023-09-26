@@ -1,6 +1,8 @@
 import { BlockAsJSON } from "../../types"
 import sha256 from 'sha256';
 import { createDate, incomingSockets } from "./helpers/funcs";
+
+//@ts-ignore
 import downloadAsFile from "download-as-file";
 import { socket } from "../App";
 

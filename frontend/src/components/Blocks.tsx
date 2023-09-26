@@ -2,6 +2,8 @@ import { useState, useContext } from "react"
 import { BlockAsJSON } from '../../types';
 import { createDate, incomingSockets, runOnce } from "./helpers/funcs";
 import { AppContext, socket } from "../App";
+
+//@ts-ignore
 import down from 'download-as-file';
 import FullBlock from "./FullBlock";
 

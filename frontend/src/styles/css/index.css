@@ -61,6 +61,7 @@ main .blocks {
   transform: translateX(-50%);
   margin-top: 1rem;
   padding-inline: 0.5rem;
+  border: 2px solid #87ffd7;
 }
 main .blocks::-webkit-scrollbar {
   height: 2px;
@@ -113,9 +114,13 @@ main .empty {
 .upload-block {
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  padding-block: 1rem;
+  width: -moz-fit-content;
+  width: fit-content;
   background-color: white;
-  height: 100vh;
   padding-inline: 1rem;
 }
 .upload-block .title {
@@ -170,8 +175,10 @@ main .empty {
   background-color: white;
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
-  height: 100vh;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  padding-block: 1rem;
   width: -moz-fit-content;
   width: fit-content;
   width: 350px;

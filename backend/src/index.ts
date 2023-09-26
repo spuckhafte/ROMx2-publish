@@ -8,4 +8,8 @@ const plugboard = new Plugboard('dist/sockets', {
     maxHttpBufferSize: 1e7,
 });
 
+plugboard.onConnection = (socket) => {
+    socket.emit('connected');
+}
+
 plugboard.start(+(process.env?.PORT as unknown as number) || 3000, () => console.log('[server started]'));

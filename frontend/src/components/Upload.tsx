@@ -2,6 +2,8 @@ import { useState, useContext } from 'react';
 import { AppContext, socket } from '../App';
 import { BlockType } from '../../types';
 import { incomingSockets } from './helpers/funcs';
+import Signal from './Signal';
+import Loader from './Loader';
 
 interface newRecordData {
     heading: string,
@@ -46,7 +48,8 @@ export default () => {
         if (newRecord.file) {
             const fileSizeInMb = newRecord.file.size / (1000 * 1000);
             if (fileSizeInMb > 10) {
-                alert("File size should be less than 10MB");
+                if (setModalJSX)
+                    setModalJSX(<Signal text="File size should be less than 10MB"/>);
                 return;
             }
         }
@@ -58,7 +61,7 @@ export default () => {
             version: 0
         }
         socket.emit('newRecord', emitData, newRecord.file);
-        if (setModalJSX) setModalJSX(null);
+        if (setModalJSX) setModalJSX(<Loader />);
     }
 
     const cancelForm = () => {
@@ -70,14 +73,21 @@ export default () => {
         socket.removeAllListeners('data-uploaded');
 
         socket.on('error-uploading', (type: "system" | "no-parent") => {
-            alert(type == "system" 
-                    ? "Error writing your file, try again!"
-                    : "Parent with this id doesn't exist"
-            );
+            if (setModalJSX)
+                setModalJSX(
+                    <Signal text={
+                        type == "system" 
+                            ? "Error writing your file, try again!"
+                            : "Parent with this id doesn't exist"
+                        }
+                    />
+                );
         });
 
         socket.on('data-uploaded', () => {
-            alert("The record has been uplaoded to the pending queue, waiting to be mined!");
+            if (setModalJSX) setModalJSX(<Signal 
+                text="The record has been uplaoded to the pending queue, waiting to be mined!"
+            />);
         });
     });
 

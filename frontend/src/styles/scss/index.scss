@@ -81,6 +81,7 @@ main {
 
         margin-top: 1rem;
         padding-inline: 0.5rem;
+        border: 2px solid lighten($green, 40);
 
         &::-webkit-scrollbar {
             height: 2px;
@@ -142,10 +143,12 @@ main {
 
 .upload-block {
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    @include center;
+    border-radius: 10px;
+    padding-block: 1rem;
+    width: fit-content;
     background-color: white;
-    height: 100vh;
+    
     padding-inline: 1rem;
 
     .title {
@@ -211,9 +214,9 @@ main {
 .search-block {
     background-color: white;
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    height: 100vh;
+    @include center;
+    border-radius: 10px;
+    padding-block: 1rem;
     width: fit-content;
     width: 350px;
 

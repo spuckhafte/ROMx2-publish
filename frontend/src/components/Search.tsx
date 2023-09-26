@@ -3,6 +3,7 @@ import { AppContext, socket } from "../App";
 import { createDate, incomingSockets } from "./helpers/funcs";
 import { BlockAsJSON } from "../../types";
 
+//@ts-ignore
 import down from 'download-as-file';
 import FullBlock from "./FullBlock";
 

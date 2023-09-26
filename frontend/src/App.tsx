@@ -23,7 +23,7 @@ export const AppContext = createContext<{
 export default () => {
     const [windowSize, setWindowSize] = useState(window.innerWidth);
     const [windowHeight, setWindowHeight] = useState(window.innerHeight);
-    const [modalJSX, setModalJSX] = useState<JSX.Element | null>(null);
+    const [modalJSX, setModalJSX] = useState<JSX.Element | null>(<Loader />);
 
     useEffect(() => {
         window.addEventListener('resize', () => {
@@ -52,6 +52,9 @@ export default () => {
     incomingSockets(() => {
         socket.removeAllListeners('error-adding-block');
         socket.removeAllListeners('block-added');
+        socket.removeAllListeners('connected');
+
+        socket.on('connected', () => setModalJSX(null));
 
         socket.on('error-adding-block', (status: string) => {
             setModalJSX(<Signal text={status}/>);
