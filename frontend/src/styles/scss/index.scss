@@ -82,7 +82,9 @@ main {
         margin-top: 1rem;
         padding-inline: 0.5rem;
 
-        ::-webkit-scrollbar { display: none; }
+        &::-webkit-scrollbar {
+            height: 2px;
+        }
 
         .noblocks {
             width: 100%;

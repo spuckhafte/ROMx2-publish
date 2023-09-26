@@ -62,8 +62,8 @@ main .blocks {
   margin-top: 1rem;
   padding-inline: 0.5rem;
 }
-main .blocks ::-webkit-scrollbar {
-  display: none;
+main .blocks::-webkit-scrollbar {
+  height: 2px;
 }
 main .blocks .noblocks {
   width: 100%;
