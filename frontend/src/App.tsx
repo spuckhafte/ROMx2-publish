@@ -11,7 +11,7 @@ import Loader from "./components/Loader";
 import Signal from "./components/Signal";
 
 
-export const socket = io('http://localhost:3000');
+export const socket = io('https://romx2-back.onrender.com');
 const SMALL_W = 580;
 const SMALL_H = 5;
 
