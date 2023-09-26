@@ -1,14 +1,14 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { AppContext, socket } from "../App";
-import { incomingSockets } from "./helpers/funcs";
+import { createDate, incomingSockets } from "./helpers/funcs";
 import { BlockAsJSON } from "../../types";
 
-//@ts-ignore;
 import down from 'download-as-file';
+import FullBlock from "./FullBlock";
 
-type field = "id" | "heading" | "details" | "filename";
+type field = "heading" | "details";
 
-const fields = ["id", "heading", "details", "filename"];
+const fields = ["heading", "details"];
 export default () => {
     const [dropDown, setDropDown] = useState(false);
     const [field, setField] = useState<field>('heading');
@@ -31,6 +31,12 @@ export default () => {
 
     const download = (file: string) => {
         socket.emit('downloadFile', file);
+    }
+
+    const openBlock = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, blockData: BlockAsJSON) => {
+        if ((e.target as HTMLDivElement).className == 'filename') return;
+        if (setModalJSX)
+            setModalJSX(<FullBlock block={blockData} />);
     }
 
     incomingSockets(() => {
@@ -87,7 +93,7 @@ export default () => {
         <div className="result">
             <div className="title">Search Results</div>
             <div className="scrollit">{
-                blocks.map(b => <div className="resultblock">
+                blocks.map((b, i) => <div key={i} className="resultblock" onClick={e => openBlock(e, b)}>
                     <div className="head">{b.data.heading}</div>
                     <div className="details">{b.data.details}</div>
                     <div 
@@ -95,9 +101,10 @@ export default () => {
                         title={b.data.fileName} 
                         onClick={() => download(b.data.fileName)}
                     >
-                        Download File
+                        💾 Download File
                     </div>
-                    <div className="time">{new Date(b.timestamp).toUTCString()}</div>
+                    <div className="time">{createDate(new Date(b.timestamp))}</div>
+                    <div className="openblock">Open Record</div>
                 </div>)
             }</div>
         </div>

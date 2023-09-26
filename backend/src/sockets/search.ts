@@ -2,17 +2,16 @@ import { ASocket } from "plugboard.io";
 import Chain from "../Schema/Chain.js";
 import { BlockAsJSON, BlockType } from "../../types.js";
 
-type field = "id" | "heading" | "details" | "filename";
+type field = "heading" | "details";
 
 export default class extends ASocket<[field: field, query: string]> {
     async run() {
         if (!this.args) return;
 
         const [field, query] = this.args;
-        const actualField = field == 'id' ? field : "data." + field;
 
         const blocks: BlockAsJSON[] = (await Chain.find({
-            [actualField]: {
+            ["data." + field]: {
                 "$regex": query,
                 "$options": "i"
             }

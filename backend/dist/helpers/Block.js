@@ -18,13 +18,14 @@ export default class Block {
         return JSON.stringify(this);
     }
     get asJSON() {
-        return {
+        const data = {
             id: this.id,
             nonce: this.nonce,
             timestamp: this.timestamp,
             prevBlockHash: this.prevBlockHash,
             data: this.data,
         };
+        return data;
     }
     initOtherData(otherData) {
         this.id = otherData.id;

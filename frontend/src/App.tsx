@@ -7,6 +7,8 @@ import { createContext } from "react";
 import Upload from "./components/Upload";
 import Search from "./components/Search";
 import { incomingSockets } from "./components/helpers/funcs";
+import Loader from "./components/Loader";
+import Signal from "./components/Signal";
 
 
 export const socket = io('http://localhost:3000');
@@ -43,6 +45,7 @@ export default () => {
     }
 
     function mine() {
+        setModalJSX(<Loader />);
         socket.emit('mine');
     }
 
@@ -51,13 +54,13 @@ export default () => {
         socket.removeAllListeners('block-added');
 
         socket.on('error-adding-block', (status: string) => {
-            alert(status);
+            setModalJSX(<Signal text={status}/>);
         });
 
         socket.on('block-added', (status: string) => {
-            alert(status);
-        })
-    })
+            setModalJSX(<Signal text={status} />);
+        });
+    });
 
     return (
         <AppContext.Provider

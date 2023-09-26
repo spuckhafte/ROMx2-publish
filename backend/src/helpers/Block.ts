@@ -25,16 +25,17 @@ export default class Block {
 
     get toString() {
         return JSON.stringify(this);
-    }
+    } 
 
     get asJSON(): BlockAsJSON {
-        return {
+        const data = {
             id: this.id,
             nonce: this.nonce,
             timestamp: this.timestamp,
             prevBlockHash: this.prevBlockHash,
             data: this.data,
         }
+        return data;
     }
 
     initOtherData(otherData: { id: string, timestamp: number, nonce: number }) {

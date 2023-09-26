@@ -1,16 +1,22 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { BlockAsJSON } from '../../types';
-import { incomingSockets, runOnce } from "./helpers/funcs";
-import { socket } from "../App";
-
-//@ts-ignore;
+import { createDate, incomingSockets, runOnce } from "./helpers/funcs";
+import { AppContext, socket } from "../App";
 import down from 'download-as-file';
+import FullBlock from "./FullBlock";
 
 export default () => {
     const [blocks, setBlocks] = useState<BlockAsJSON[]>([]);
+    const { setModalJSX } = useContext(AppContext);
 
     const download = (file: string) => {
         socket.emit('downloadFile', file);
+    }
+
+    const showBlock = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, blockData: BlockAsJSON) => {
+        if ((e.target as HTMLDivElement).className == 'filename') return;
+        if (setModalJSX)
+            setModalJSX(<FullBlock block={blockData} />);
     }
 
     runOnce(() => {
@@ -40,8 +46,9 @@ export default () => {
         
         { blocks.length ? 
             blocks.map((blo, i) => {
-                return <div className="recent-block" key={i}>
-                    <div className="head">{blo.data.heading}</div>
+                return <div className="recent-block" key={i} onClick={e => showBlock(e, blo)}>
+                    <div className="head" title={blo.data.heading}>{blo.data.heading}</div>
+                    <div className="version">v{blo.data.version}</div>
                     <div 
                         className="filename" 
                         title={blo.data.fileName} 
@@ -49,7 +56,7 @@ export default () => {
                     >
                         Download File
                     </div>
-                    <div className="time">{new Date(blo.timestamp).toUTCString()}</div>
+                    <div className="time">{createDate(new Date(blo.timestamp))}</div>
                 </div>
             })
             : <div className="noblocks">there are no records yet...</div> }

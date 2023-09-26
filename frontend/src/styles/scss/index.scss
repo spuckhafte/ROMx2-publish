@@ -1,4 +1,5 @@
 @import "_vars";
+@import "_mixins";
 
 body {
     margin: 0;
@@ -12,6 +13,7 @@ body {
 main {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     width: 100%;
     height: 100vh;
 
@@ -61,12 +63,10 @@ main {
     }
 
     .blocks {
-        border: 2px solid $primary-blue;
         border-radius: 10px;
-        background-color: lighten($primary-blue, 40);
+        background-color: lighten($green, 40);
         overflow-x: auto;
         display: flex;
-        // flex-direction: row-reverse;
 
         position: relative;
         align-items: center;
@@ -82,35 +82,39 @@ main {
         margin-top: 1rem;
         padding-inline: 0.5rem;
 
+        ::-webkit-scrollbar { display: none; }
+
         .noblocks {
             width: 100%;
-            position: relative;
-            top: 50%;
-            transform: translate(0%, -50%);
             text-align: center;
             color: lighten($heart, 10);
             font-weight: bold;
+        }
+
+        >:first-child {
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
         }
 
         .recent-block {
             width: 150px;
             min-width: 150px;
 
-            background-color: $dark7;
+            background-color: white;
             margin-right: 0.5rem;
-            padding: 0.1rem;
+            padding: 0.3rem;
+
+            cursor: pointer;
 
             .head {
                 font-weight: bold;
-                margin-bottom: 0.5rem;
+                width: 100%;
+                @include dotdot;
             }
 
-            .filename {
-                color: $primary-blue;
-                font-weight: bold;
-                font-size: small;
-                text-transform: uppercase;
-                cursor: pointer;
+            .version {
+                font-size: smaller;
+                margin-bottom: 0.3rem;
             }
 
             .time {
@@ -131,7 +135,7 @@ main {
     height: 100vh;
     z-index: 999;
 
-    background-color: rgba(0, 0, 0, 0.568);
+    background-color: rgba(0, 0, 0, 0.808);
 }
 
 .upload-block {
@@ -209,6 +213,7 @@ main {
     transform: translateX(-50%);
     height: 100vh;
     width: fit-content;
+    width: 350px;
 
     display: flex;
     flex-direction: column;
@@ -225,6 +230,9 @@ main {
 
     .controller {
         display: flex;
+        position: relative;
+        left: 50%;
+        transform: translateX(-40%);
         padding-inline: 0.1rem;
         .field-control {
             .field {
@@ -293,26 +301,159 @@ main {
 
     .result {
         border: 2px solid $primary-blue;
-        width: 95%;
+        width: 100%;
         margin-top: 1rem;
         position: relative;
         left: 50%;
         transform: translateX(-50%);
         border-radius: 10px;
-        height: 100%;
-
-        border-bottom: none;
+        height: fit-content;
 
         .scrollit {
             margin-top: -0.8rem;
             border-top: 2px solid;  
-            height: 100%;
+            height: 22rem;
             overflow: hidden;
             overflow-y: auto;
+
+            &:last-child {
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+            }
+
+            .resultblock {
+                display: flex;
+                flex-direction: column;
+                padding: 0.5rem;
+                background-color: $dark7;
+                margin-bottom: 0.2rem;
+                width: 100%;
+            
+                .head {
+                    font-size: large;
+                    font-weight: bold;
+                    width: fit-content;
+                }
+            
+                .details {
+                    font-style: italic;
+                    margin-bottom: 0.3rem;
+                    width: 95%;
+                    overflow-x: hidden;
+                    overflow-y: auto;
+                    max-height: 100px;
+                    word-break: break-word;
+                }
+            
+                .time {
+                    font-size: small;
+                }
+
+                .openblock {
+                    font-size: small;
+                    font-weight: bold;
+                    margin-top: 5px;
+                    text-transform: lowercase;
+                    cursor: pointer;
+                    width: fit-content;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
         }
     }
 }
 
+.full-block {
+    overflow: hidden;
+    background-color: white;
+    height: fit-content;
+    width: 350px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0.5rem;
+    border-radius: 10px;
+
+    .id {
+        font-size: x-small;
+        color: $dark6;
+        font-weight: bold;
+        margin-bottom: 0.4rem;
+    }
+
+    .head {
+        font-size: large;
+        font-weight: bold;
+    }
+
+    .version {
+        font-size: smaller;
+        font-weight: bold;
+        color: $dark5;
+
+        cursor: pointer;
+        width: fit-content;
+
+        span {
+            color: $dark6;
+        }
+    }
+
+    .details {
+        margin-block: 0.3rem;
+        width: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+        max-height: 100px;
+        word-break: break-word;
+    }
+
+    .timestamp {
+        font-size: 12.5px;
+        font-weight: bold;
+        color: $dark5;
+    }
+
+    .hash, .prev-hash, .nonce {
+        display: flex;
+        width: 100%;
+
+        // border-top: 2px solid $dark4;
+        margin-top: 0.5rem;
+        padding-top: 0.5rem;
+        text-transform: uppercase;
+        font-size: small;
+        font-weight: bold;
+        
+        span {
+            width: 100%;
+            overflow-x: auto;
+            margin-left: 0.3rem;
+            font-weight: normal;
+
+            &::-webkit-scrollbar {
+                height: 3px;
+            }
+        }
+    }
+
+    .prev-hash, .nonce {
+        padding: 0;
+    }
+}
+
+.filename {
+    color: $primary-blue;
+    font-weight: bold;
+    font-size: small;
+    text-transform: uppercase;
+    cursor: pointer;
+    width: fit-content;
+}
 
 button {
     height: 3rem;
@@ -343,35 +484,52 @@ input, textarea {
     border: 2px solid transparent;
 }
 
-.resultblock {
-    display: flex;
-    flex-direction: column;
-    padding: 0.5rem;
-    background-color: $dark7;
-    margin-bottom: 0.2rem;
+.loadscreen {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
 
-    .head {
-        font-size: large;
-        font-weight: bold;
+    .loader-path {
+        position: absolute;
+        @include center;
+        width: 80px;
+        height: 80px;
+        border: 3px solid white;
+        border-radius: 100%;
     }
 
-    .details {
-        font-style: italic;
-        margin-bottom: 0.3rem;
-    }
-
-    .filename {
-        color: $primary-blue;
-        text-transform: uppercase;
-        font-size: smaller;
-        font-weight: bold;
-        cursor: pointer;
-    }
-
-    .time {
-        font-size: small;
+    .loader-tail {
+        position: absolute;
+        @include center;
+        width: 80px;
+        height: 80px;
+        border-top: 6px solid $primary-blue;
+        border-radius: 100%;
+        animation: bufferLoader 0.3s linear infinite;
     }
 }
+
+@keyframes bufferLoader {
+    from {
+        transform: translate(-50%, -50%)
+            rotate(0deg);
+    } to {
+        transform: translate(-50%, -50%)
+            rotate(360deg);
+    }
+}
+
+.signal {
+    position: absolute;
+    @include center;
+    padding: 1rem;
+    font-size: small;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: white;
+    border-radius: 10px;
+}
+
 
 @media (max-width: 580px) {
     main {
@@ -379,7 +537,13 @@ input, textarea {
     }
 
     .search-block {
-        padding-inline: 0;
+        padding-inline: 8px;
+        width: 280px;
+
+        .controller {
+            left: 0;
+            transform: none;
+        }
     }
 
     .face {
@@ -395,4 +559,34 @@ input, textarea {
         height: 0;
         min-height: 0;
     }
+
+    .full-block {
+        width: 280px;
+    }
+
+    .openblock {
+        text-decoration: underline;
+    }
+}
+
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 3px;
+}
+  
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
 }

@@ -17,7 +17,7 @@ export default class extends ASocket {
         return __awaiter(this, void 0, void 0, function* () {
             const pendingBlock = (yield Pending.find({}).sort('timestamp'))[0];
             if (!pendingBlock || !pendingBlock.id) {
-                (_a = this.socket) === null || _a === void 0 ? void 0 : _a.emit('pending-block', []);
+                (_a = this.socket) === null || _a === void 0 ? void 0 : _a.emit('block-added', 'No block to mine');
                 return;
             }
             const block = new Block(pendingBlock.data, EVault.chain[EVault.chain.length - 1].hash).initOtherData({
@@ -34,7 +34,7 @@ export default class extends ASocket {
                     (_b = this.socket) === null || _b === void 0 ? void 0 : _b.emit('error-adding-block', status);
                 }
                 else {
-                    (_c = this.socket) === null || _c === void 0 ? void 0 : _c.emit('block-added', 'New Block Added');
+                    (_c = this.socket) === null || _c === void 0 ? void 0 : _c.emit('block-added', 'New record added to the vault.');
                     (_d = this.io) === null || _d === void 0 ? void 0 : _d.emit('update-recents');
                     yield Pending.deleteOne({ id: block.id });
                 }

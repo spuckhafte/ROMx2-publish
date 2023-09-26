@@ -17,3 +17,7 @@ export function runOnce(func: (() => void)) {
 export function incomingSockets(register: (() => void)) {
     runOnce(register);
 }
+
+export function createDate(date: Date) {
+    return `${date.getUTCHours()}:${date.getUTCMinutes()} ${date.getUTCDate()}-${date.getUTCMonth()}-${date.getUTCFullYear()}`
+}

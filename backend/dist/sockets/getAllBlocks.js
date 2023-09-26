@@ -9,19 +9,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { ASocket } from "plugboard.io";
 import Chain from "../Schema/Chain.js";
+import Block from "../helpers/Block.js";
 export default class extends ASocket {
     run() {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
             const blocks = yield Chain.find({}).sort('-1');
             const sendBlocks = blocks.map((bl) => {
-                return {
+                return new Block(bl.data, bl.prevBlockHash).initOtherData({
                     id: bl.id,
                     timestamp: bl.timestamp,
-                    prevBlockHash: bl.prevBlockHash,
-                    nonce: bl.nonce,
-                    data: bl.data,
-                };
+                    nonce: bl.nonce
+                }).asJSON;
             });
             sendBlocks.shift();
             (_a = this.socket) === null || _a === void 0 ? void 0 : _a.emit('allBlocks', sendBlocks.reverse());

@@ -15,8 +15,8 @@ export type ChainErrors =
 
 export type BlockAsJSON = {
     id: string,
+    nonce: number,
     timestamp: number,
     prevBlockHash: string,
-    nonce: number,
     data: BlockType,
 }
