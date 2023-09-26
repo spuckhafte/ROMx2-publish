@@ -86,7 +86,7 @@ main .blocks .recent-block {
 main .blocks .recent-block .head {
   font-weight: bold;
   width: 100%;
-  hite-space: no-wrap;
+  white-space: no-wrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
