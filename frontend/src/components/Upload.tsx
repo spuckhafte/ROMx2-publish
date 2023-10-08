@@ -45,14 +45,25 @@ export default () => {
 
 
     const submitForm = () => {
-        if (newRecord.file) {
-            const fileSizeInMb = newRecord.file.size / (1000 * 1000);
-            if (fileSizeInMb > 10) {
-                if (setModalJSX)
-                    setModalJSX(<Signal text="File size should be less than 10MB"/>);
-                return;
-            }
+        if (!newRecord.file || !newRecord.file.size) {
+            if (setModalJSX)
+                setModalJSX(<Signal text="No file selected"/>);
+            return;
         }
+
+        const fileSizeInMb = newRecord.file.size / (1000 * 1000);
+        if (fileSizeInMb > 10) {
+            if (setModalJSX)
+                setModalJSX(<Signal text="File size should be less than 10MB"/>);
+            return;
+        }
+
+        if (!newRecord.file.name.endsWith(".txt")) {
+            if (setModalJSX)
+                setModalJSX(<Signal text="Only .txt files are supported for now"/>);
+            return;
+        }
+
         const emitData: BlockType = {
             heading: newRecord.heading,
             details: newRecord.details,
